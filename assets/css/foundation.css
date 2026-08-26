@@ -68,7 +68,7 @@
   --artisanal-accent-action: var(--accent-text, #245c40);
   --artisanal-accent-dark: #173c2b;
   --artisanal-selection: #ffe2e2;
-  --artisanal-display: "Fraunces", "Source Serif 4", Georgia, serif;
+  --artisanal-display: "Source Serif 4", Georgia, serif;
   --artisanal-body:
     "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --artisanal-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;

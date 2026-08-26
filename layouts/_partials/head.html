@@ -13,7 +13,7 @@
 {{/* CSS dependency artifacts were added in Hugo 0.165. Older supported versions omit this optional preload. */}}
 {{- if ge hugo.Version "0.165.0" -}}
   {{- range $style.Data.Artifacts -}}
-    {{- if and (eq .MediaType.MainType "font") (strings.Contains .RelPermalink "fraunces-600") -}}
+    {{- if and (eq .MediaType.MainType "font") (strings.Contains .RelPermalink "source-serif-4-600") -}}
       <link rel="preload" href="{{ .RelPermalink }}" as="font" type="{{ .MediaType.Type }}" crossorigin>
     {{- end -}}
   {{- end -}}

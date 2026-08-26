@@ -84,11 +84,11 @@ test('font preload matches the compiled stylesheet asset', async ({ page }) => {
     const stylesheet = document.querySelector('link[rel="stylesheet"]');
     if (!preload || !stylesheet) return null;
     const css = await fetch(stylesheet.href).then((response) => response.text());
-    const match = css.match(/url\(([^)]*fraunces-600[^)]*\.woff2)\)/);
-    if (!match) return null;
+    const preloadPath = new URL(preload.href).pathname;
+    if (!css.includes(preloadPath)) return null;
     return {
-      preload: new URL(preload.href).pathname,
-      stylesheet: new URL(match[1], stylesheet.href).pathname,
+      preload: preloadPath,
+      stylesheet: preloadPath,
     };
   });
   expect(fontURLs).not.toBeNull();

@@ -45,7 +45,7 @@ Run `hugo server` and open the local address shown by Hugo.
 - Journal sections with list or gallery views.
 - Nested backlinks that preserve the visitor’s entry section.
 - Resume, taxonomy, RSS, 404, and standard page layouts.
-- Local DM Sans, Fraunces, and Source Serif 4 font files.
+- Local Source Serif 4 display and DM Sans body fonts, with Fraunces available for optional overrides.
 - Responsive images with eager loading for lead images and lazy loading for later images.
 - Same-origin navigation prefetching on pointer or keyboard intent.
 - A slow opacity-only page transition when the browser supports View Transitions.
