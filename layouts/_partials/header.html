@@ -1,0 +1,12 @@
+<div class="site-header__inner">
+  {{- $markName := site.Params.artisanal.headerMark | default "mark.svg" -}}
+  {{- $mark := site.Home.Resources.GetMatch $markName -}}
+  <a class="site-brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}">
+    {{- with $mark -}}
+      <img class="site-brand__mark" src="{{ .RelPermalink }}" alt="" width="40" height="40" decoding="async">
+    {{- else -}}
+      {{ site.Title }}
+    {{- end -}}
+  </a>
+  {{ partial "menu.html" . }}
+</div>

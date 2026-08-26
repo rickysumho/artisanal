@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <div class="section-page">
+    <header class="section-header">
+      <h1 class="section-header__title">{{ .Title }}</h1>
+      {{ with .Content }}<div class="section-header__description prose">{{ . }}</div>{{ end }}
+    </header>
+    <ul class="taxonomy-list">
+      {{ range .Pages.ByTitle }}
+        <li class="taxonomy-list__item"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a><span class="taxonomy-list__count">{{ len .Pages }} {{ i18n "items" }}</span></li>
+      {{ end }}
+    </ul>
+  </div>
+{{ end }}

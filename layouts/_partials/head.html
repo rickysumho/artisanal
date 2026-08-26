@@ -1,0 +1,34 @@
+{{- $description := .Description | default site.Params.description | default site.Title -}}
+{{- $style := resources.Get "css/main.css" | css.Build -}}
+{{- $titleSeparator := site.Params.artisanal.titleSeparator | default "·" -}}
+{{- if hugo.IsProduction -}}
+  {{- $style = $style | minify | fingerprint -}}
+{{- end -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{ $description | plainify | htmlEscape }}">
+<meta name="generator" content="Hugo {{ hugo.Version }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s %s %s" .Title $titleSeparator site.Title }}{{ end }}</title>
+{{/* CSS dependency artifacts were added in Hugo 0.165. Older supported versions omit this optional preload. */}}
+{{- if ge hugo.Version "0.165.0" -}}
+  {{- range $style.Data.Artifacts -}}
+    {{- if and (eq .MediaType.MainType "font") (strings.Contains .RelPermalink "fraunces-600") -}}
+      <link rel="preload" href="{{ .RelPermalink }}" as="font" type="{{ .MediaType.Type }}" crossorigin>
+    {{- end -}}
+  {{- end -}}
+{{- end }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}"{{ with $style.Data.Integrity }} integrity="{{ . }}" crossorigin="anonymous"{{ end }}>
+{{- with resources.Get "js/navigation-prefetch.js" -}}
+  {{- $prefetchScript := . -}}
+  {{- if hugo.IsProduction }}{{ $prefetchScript = $prefetchScript | minify | fingerprint }}{{ end -}}
+  <script src="{{ $prefetchScript.RelPermalink }}" defer></script>
+{{- end }}
+{{- $theme := site.Params.artisanal | default dict -}}
+<style>:root { --accent: {{ $theme.accent | default "#5c9574" | safeCSS }}; --accent-text: {{ $theme.accentText | default "#245c40" | safeCSS }}; }</style>
+{{ with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+{{ end }}
+{{ template "_internal/opengraph.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
+{{ template "_internal/schema.html" . }}

@@ -1,0 +1,36 @@
+{{ define "main" }}
+  <div class="journal">
+    {{ partial "section-back-link.html" . }}
+    <header class="section-header">
+      <h1 class="section-header__title">{{ .Title }}</h1>
+      {{ with .Content }}<div class="section-header__description prose">{{ . }}</div>{{ end }}
+    </header>
+    {{- $view := "list" -}}
+    {{- with .Params.artisanal }}{{ with .view }}{{ $view = lower . }}{{ end }}{{ end -}}
+    {{- if eq $view "gallery" -}}
+      {{ partial "journal-gallery.html" . }}
+    {{- else -}}
+    <div class="journal-archive">
+      {{ range .Sections.ByWeight }}
+        <section class="journal-group">
+          <h2 class="journal-group__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ with .Content }}<div class="journal-group__description prose">{{ . }}</div>{{ end }}
+          {{ with .Params.artisanal }}{{ with .quote }}<blockquote class="journal-quote">{{ . }}</blockquote>{{ end }}{{ end }}
+          {{ $view := lower (.Params.artisanal.view | default "list") }}
+          {{ if eq $view "gallery" }}
+            {{ partial "journal-gallery.html" . }}
+          {{ else }}
+            <div class="journal-group__entries">{{ partial "journal-list.html" (dict "page" . "pages" .RegularPages) }}</div>
+          {{ end }}
+        </section>
+      {{ end }}
+      {{ with .RegularPages }}
+        <section class="journal-group">
+          <h2 class="journal-group__title">{{ i18n "entries" }}</h2>
+          <div class="journal-group__entries">{{ partial "journal-list.html" (dict "page" $ "pages" .) }}</div>
+        </section>
+      {{ end }}
+    </div>
+    {{- end -}}
+  </div>
+{{ end }}

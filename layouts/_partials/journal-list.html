@@ -1,0 +1,16 @@
+{{- $page := .page -}}
+{{- $pages := .pages.ByDate.Reverse -}}
+{{- $dateFormat := $page.Site.Params.artisanal.dateFormat | default "Jan 2, 2006" -}}
+<ul class="journal-list">
+  {{ range $pages }}
+    <li class="journal-item">
+      <a class="journal-item__link" href="{{ .RelPermalink }}">
+        <time class="journal-item__date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time>
+        <span>
+          <span class="journal-item__title">{{ .LinkTitle }}</span>
+          <span class="journal-item__summary">{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 180 }}{{ end }}</span>
+        </span>
+      </a>
+    </li>
+  {{ else }}<li class="empty-state">{{ i18n "empty_section" }}</li>{{ end }}
+</ul>

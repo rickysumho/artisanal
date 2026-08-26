@@ -1,0 +1,6 @@
+{{- $dateFormat := .Site.Params.artisanal.dateFormat | default "Jan 2, 2006" -}}
+<div class="article-meta">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time>
+  {{ with .ReadingTime }}<span>{{ . }} min read</span>{{ end }}
+  {{ with .Params.tags }}<span>{{ delimit . ", " }}</span>{{ end }}
+</div>

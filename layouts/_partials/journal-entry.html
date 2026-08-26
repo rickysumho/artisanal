@@ -1,0 +1,12 @@
+<article class="journal-entry">
+  <div class="journal-entry__meta">
+    {{ partial "article-meta.html" . }}
+  </div>
+  <h2 class="journal-entry__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  {{- with .Params.summary -}}
+    <p class="journal-entry__summary">{{ . }}</p>
+  {{- else -}}
+    <p class="journal-entry__summary">{{ .Summary | plainify | truncate 180 }}</p>
+  {{- end -}}
+  <a class="journal-entry__link" href="{{ .RelPermalink }}">{{ i18n "read_more" | default "Read more" }} <span aria-hidden="true">→</span></a>
+</article>

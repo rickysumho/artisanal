@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <div class="page-shell page-content">
+    <article class="page-measure error-page">
+      <header class="page-header">
+        <h1 class="page-title">{{ i18n "not_found_heading" | default "Page not found" }}</h1>
+      </header>
+      <p class="error-page__message">{{ i18n "not_found_body" | default "The page you requested does not exist or has moved." }}</p>
+      <a class="error-page__link" href="{{ site.Home.RelPermalink }}">{{ i18n "return_home" | default "Return home" }}</a>
+    </article>
+  </div>
+{{ end }}

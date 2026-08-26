@@ -1,0 +1,25 @@
+{{ define "main" }}
+  <div class="section-page">
+    {{ partial "section-back-link.html" . }}
+    <header class="section-header">
+      <h1 class="section-header__title">{{ .Title }}</h1>
+      {{ with .Content }}<div class="section-header__description prose">{{ . }}</div>{{ end }}
+    </header>
+    {{- $view := "list" -}}
+    {{- with .Params.artisanal }}{{ with .view }}{{ $view = lower . }}{{ end }}{{ end -}}
+    {{- if eq $view "gallery" -}}
+      {{ partial "journal-gallery.html" . }}
+    {{- else -}}
+      {{- $pages := .RegularPages.ByDate.Reverse -}}
+      {{- if gt (len $pages) 0 -}}
+        {{- $paginator := .Paginate $pages -}}
+        <div class="page-list">
+          {{ range $paginator.Pages }}{{ partial "journal-entry.html" . }}{{ end }}
+        </div>
+        {{ partial "pagination.html" $paginator }}
+      {{- else -}}
+        <p class="empty-state">{{ i18n "empty_section" }}</p>
+      {{- end -}}
+    {{- end -}}
+  </div>
+{{ end }}

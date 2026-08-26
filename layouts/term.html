@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <div class="section-page">
+    <header class="section-header">
+      <h1 class="section-header__title">{{ .Title }}</h1>
+      {{ with .Content }}<div class="section-header__description prose">{{ . }}</div>{{ end }}
+    </header>
+    {{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+    <div class="page-list">
+      {{ range $paginator.Pages }}{{ partial "journal-entry.html" . }}{{ else }}<p class="empty-state">{{ i18n "empty_section" }}</p>{{ end }}
+    </div>
+    {{ partial "pagination.html" $paginator }}
+  </div>
+{{ end }}

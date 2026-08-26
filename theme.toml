@@ -1,0 +1,10 @@
+name = "Artisanal"
+license = "MIT"
+licenselink = "https://opensource.org/license/mit/"
+description = "A quiet editorial Hugo theme for personal sites, journals, portfolios, and resumes."
+tags = ["personal", "journal", "portfolio", "resume", "editorial", "responsive"]
+features = ["responsive", "accessible", "local fonts", "image processing", "taxonomy pages", "RSS"]
+min_version = "0.158.0"
+
+[author]
+  name = "Ricky Ho"

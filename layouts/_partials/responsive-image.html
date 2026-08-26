@@ -1,0 +1,22 @@
+{{- $image := .image -}}
+{{- $alt := .alt | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $className := "responsive-image" -}}
+{{- with $class }}{{ $className = printf "responsive-image %s" . }}{{ end -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $sizes := .sizes | default "(max-width: 600px) 100vw, 580px" -}}
+{{- $src := $image -}}
+{{- $srcset := slice -}}
+{{- $processable := in (slice "image/jpeg" "image/png" "image/webp") $image.MediaType.Type -}}
+{{- if $processable -}}
+  {{- range (slice 320 480 640 960 1280) -}}
+    {{- if le . $image.Width -}}
+      {{- $variant := $image.Resize (printf "%dx webp q82" .) -}}
+      {{- $src = $variant -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $variant.RelPermalink .) -}}
+    {{- end -}}
+  {{- end -}}
+  <img src="{{ $src.RelPermalink }}"{{ with $srcset }} srcset="{{ delimit . ", " }}" sizes="{{ $sizes }}"{{ end }}{{ if and $image.Width $image.Height }} width="{{ $image.Width }}" height="{{ $image.Height }}"{{ end }} alt="{{ $alt | htmlEscape }}" loading="{{ $loading }}" decoding="async" class="{{ $className }}">
+{{- else -}}
+  <img src="{{ $image.RelPermalink }}" alt="{{ $alt | htmlEscape }}" loading="{{ $loading }}" decoding="async" class="{{ $className }}">
+{{- end -}}

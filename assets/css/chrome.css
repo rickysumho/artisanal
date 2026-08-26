@@ -1,0 +1,255 @@
+.site-footer {
+  position: relative;
+  margin-top: auto;
+  padding: 2rem var(--artisanal-gutter) 2.5rem;
+  background: var(--artisanal-canvas);
+  color: var(--artisanal-ink-muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.site-footer__inner,
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.site-footer a,
+.footer-inner a {
+  color: inherit;
+}
+
+.site-footer a:hover,
+.footer-inner a:hover {
+  color: var(--artisanal-accent-action);
+}
+
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.not-found,
+.error-page,
+.empty-state {
+  padding: clamp(5rem, 15vw, 10rem) 0;
+  text-align: center;
+}
+
+.not-found__title,
+.error-page__title,
+.empty-state__title {
+  margin: 0;
+  color: var(--artisanal-ink-strong);
+  font-family: var(--artisanal-display);
+  font-size: clamp(3rem, 12vw, 7rem);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.not-found__message,
+.error-page__message,
+.empty-state__message {
+  max-width: 42ch;
+  margin: 1.5rem auto 0;
+  color: var(--artisanal-ink-soft);
+}
+
+.not-found__action,
+.error-page__action,
+.empty-state__action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: 1.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--artisanal-accent-action);
+  color: var(--artisanal-accent-action);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color var(--artisanal-transition),
+    color var(--artisanal-transition);
+}
+
+.not-found__action:hover,
+.error-page__action:hover,
+.empty-state__action:hover {
+  background: var(--artisanal-accent-action);
+  color: var(--artisanal-canvas);
+}
+
+/* Cross-document view transitions fade the outgoing and incoming pages.
+   Browsers that do not support them keep regular document navigation. */
+@view-transition {
+  navigation: auto;
+}
+
+@supports (view-transition-name: page) {
+  :root {
+    view-transition-name: page;
+  }
+
+  ::view-transition-old(page) {
+    animation: artisanal-page-fade-out 420ms ease both;
+  }
+
+  ::view-transition-new(page) {
+    animation: artisanal-page-fade-in 520ms ease both;
+  }
+}
+
+@keyframes artisanal-page-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes artisanal-page-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 760px) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(9rem, 0.42fr);
+  }
+
+  .home-mark,
+  .hero-mark,
+  .portrait {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 1023px) {
+  .gallery,
+  .gallery-grid,
+  .journal-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .site-nav {
+    padding-top: 0.65rem;
+    padding-bottom: 1.1rem;
+  }
+
+  .site-nav__list,
+  .nav-list,
+  .menu {
+    gap: 0.1rem 0.8rem;
+  }
+
+  .page-title,
+  .section-title,
+  .article-title {
+    font-size: clamp(2.5rem, 8vw, 4.7rem);
+  }
+
+  .journal-item__link,
+  .post-item__link,
+  .archive-item__link,
+  .resume-section,
+  .resume__section,
+  .resume-entry,
+  .resume__entry {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+
+  .journal-item__date,
+  .post-item__date,
+  .archive-item__date,
+  .resume-entry__period,
+  .resume__entry-period {
+    padding-top: 0;
+  }
+
+  .resume-section__title,
+  .resume__section-title {
+    margin-bottom: 0.6rem;
+  }
+
+  .article-pagination,
+  .pagination {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  .article-pagination > :last-child,
+  .pagination > :last-child {
+    text-align: left;
+  }
+}
+
+@media (max-width: 599px) {
+  .gallery,
+  .gallery-grid,
+  .journal-gallery,
+  .resume-projects,
+  .resume__projects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gallery-item--wide,
+  .gallery-card--wide,
+  .journal-gallery__item--wide {
+    grid-column: auto;
+  }
+
+  .home-title,
+  .hero-title {
+    font-size: clamp(3.5rem, 20vw, 6.4rem);
+  }
+
+  .site-footer__inner,
+  .footer-inner {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-old(page),
+  ::view-transition-new(page) {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+}

@@ -1,0 +1,5 @@
+{{- with .Parent -}}
+  {{- if and .IsSection (not .IsHome) -}}
+    <a class="back-link section-back-link" href="{{ .RelPermalink }}" data-section-back-link>← {{ i18n "back_to_section" (dict "title" .Title) }}</a>
+  {{- end -}}
+{{- end -}}

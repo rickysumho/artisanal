@@ -1,0 +1,57 @@
+baseURL = '/'
+locale = 'en-us'
+title = 'field notes'
+theme = 'artisanal'
+enableRobotsTXT = true
+
+[pagination]
+  pagerSize = 5
+
+[params]
+  description = 'A quiet portfolio and journal for curious work.'
+  mainSections = ['works']
+
+  [params.artisanal]
+    accent = '#5c9574'
+    accentText = '#245c40'
+    dateFormat = 'Jan 2, 2006'
+    headerMark = 'mark.svg'
+    titleSeparator = '·'
+
+  [[params.artisanal.social]]
+    name = 'Code'
+    url = 'https://code.example.org/'
+    icon = 'github'
+
+  [[params.artisanal.social]]
+    name = 'Email'
+    url = 'mailto:hello@example.org'
+    icon = 'email'
+
+  [[params.artisanal.social]]
+    name = 'Updates'
+    url = '/index.xml'
+    icon = 'rss'
+
+[[menus.main]]
+  name = 'home'
+  pageRef = '/'
+  weight = 10
+
+[[menus.main]]
+  name = 'works'
+  pageRef = '/works'
+  weight = 20
+
+[[menus.main]]
+  name = 'resume'
+  pageRef = '/resume'
+  weight = 30
+
+[[menus.main]]
+  name = 'tea'
+  pageRef = '/tea'
+  weight = 40
+
+[taxonomies]
+  tag = 'tags'

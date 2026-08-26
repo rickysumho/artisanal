@@ -1,0 +1,17 @@
+{
+  "name": "artisanal-hugo-theme-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "./scripts/build-example.sh",
+    "build:strict": "./scripts/test-hugo.sh",
+    "test:e2e": "playwright test",
+    "test:html": "html-validate 'public/**/*.html'",
+    "test": "npm run build:strict && npm run test:html && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "html-validate": "11.10.0"
+  }
+}

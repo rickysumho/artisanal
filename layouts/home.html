@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{- $home := . -}}
+  <div class="home">
+    <div class="home-hero page-shell">
+      <div class="home-hero__copy">
+        <h1 class="home-title">{{ site.Title }}</h1>
+        {{ with $home.Params.artisanal }}{{ with .subtitle }}<p class="home-subtitle">{{ . }}</p>{{ end }}{{ end }}
+        {{ with $home.Content }}<div class="home-intro prose">{{ . }}</div>{{ end }}
+      </div>
+      {{ with $home.Params.artisanal }}
+        {{ with .portrait }}
+          {{ $resource := $home.Resources.GetMatch .resource }}
+          {{ with $resource }}
+            <figure class="home-hero__portrait">
+              {{ partial "responsive-image.html" (dict "image" . "alt" ($home.Params.artisanal.portrait.alt | default "") "class" "home-mark" "loading" "eager" "sizes" "(max-width: 759px) 35vw, 208px") }}
+            </figure>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+{{ end }}

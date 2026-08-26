@@ -1,0 +1,25 @@
+{{- $page := . -}}
+{{- $dateFormat := $page.Site.Params.artisanal.dateFormat | default "Jan 2, 2006" -}}
+<div class="journal-gallery">
+  {{ range $index, $entry := $page.RegularPages.ByDate.Reverse }}
+    {{- $loading := "lazy" -}}
+    {{- if eq $index 0 }}{{ $loading = "eager" }}{{ end -}}
+    {{- $image := false -}}
+    {{- $alt := $entry.Title -}}
+    {{- with .Params.artisanal }}
+      {{- with .image }}{{ $image = $entry.Resources.GetMatch . }}{{ end -}}
+      {{- with .alt }}{{ $alt = . }}{{ end -}}
+    {{- end -}}
+    {{- if not $image }}{{ $images := $entry.Resources.ByType "image" }}{{ if gt (len $images) 0 }}{{ $image = index $images 0 }}{{ end }}{{ end -}}
+    <figure class="gallery-card">
+      <a class="gallery-card__link" href="{{ $entry.RelPermalink }}">
+        {{ with $image }}{{ partial "responsive-image.html" (dict "image" . "alt" $alt "sizes" "(max-width: 600px) 100vw, 200px" "loading" $loading) }}{{ end }}
+        <span class="gallery-card__body">
+          <span class="gallery-card__date"><time datetime="{{ $entry.Date.Format "2006-01-02" }}">{{ $entry.Date.Format $dateFormat }}</time></span>
+          <span class="gallery-card__title">{{ $entry.LinkTitle }}</span>
+          <span class="gallery-card__summary">{{ with $entry.Description }}{{ . }}{{ else }}{{ $entry.Summary | plainify | truncate 150 }}{{ end }}</span>
+        </span>
+      </a>
+    </figure>
+  {{ else }}<p class="empty-state">{{ i18n "empty_section" }}</p>{{ end }}
+</div>

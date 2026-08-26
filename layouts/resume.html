@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <div class="resume">
+    <header class="resume__header">
+      <h1 class="resume__title">{{ .Title }}</h1>
+    </header>
+    <div class="resume__content prose">
+      {{ .Content }}
+    </div>
+    {{ with .Params.artisanal }}
+      <div class="resume__sections">
+        {{ range .sections }}
+          <section class="resume__section">
+            <h2 class="resume__section-title">{{ .title }}</h2>
+            <div class="resume__entries">
+              {{ range .entries }}
+                <article class="resume__entry">
+                  <p class="resume__entry-period">{{ .period }}</p>
+                  <div>
+                    <p class="resume__entry-organization">{{ .organization }}</p>
+                    {{ with .role }}<h3 class="resume__entry-role">{{ . }}</h3>{{ end }}
+                    {{ with .summary }}<div class="resume__entry-summary prose">{{ . | markdownify }}</div>{{ end }}
+                    {{ with .projects }}
+                      <ul class="resume__projects">
+                        {{ range . }}
+                          <li class="resume__project">
+                            <h4 class="resume__project-title">{{ with .url }}<a href="{{ . }}">{{ end }}{{ .title }}{{ if .url }}</a>{{ end }}</h4>
+                            {{ with .summary }}<p class="resume__project-summary">{{ . | markdownify }}</p>{{ end }}
+                          </li>
+                        {{ end }}
+                      </ul>
+                    {{ end }}
+                  </div>
+                </article>
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+{{ end }}

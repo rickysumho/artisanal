@@ -1,0 +1,10 @@
+/*
+  Artisanal theme stylesheet entrypoint.
+
+  The source is split by responsibility so sites can audit or override one
+  layer without navigating a single monolithic file.
+*/
+@import "foundation.css";
+@import "content.css";
+@import "chrome.css";
+@import "semantic.css";

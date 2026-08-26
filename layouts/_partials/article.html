@@ -1,0 +1,39 @@
+<article class="article">
+  {{ with .CurrentSection -}}
+    {{- $section := . -}}
+    {{- $sectionLabel := i18n "back_to_section" (dict "title" $section.Title) -}}
+    <a class="back-link" href="{{ $section.RelPermalink }}" data-back-link data-back-section-path="{{ $section.RelPermalink }}" data-back-section-label="{{ $sectionLabel }}"{{ with $section.Parent }} data-back-parent-path="{{ .RelPermalink }}" data-back-parent-label="{{ i18n "back_to_section" (dict "title" .Title) }}"{{ end }}>← <span data-back-label>{{ $sectionLabel }}</span></a>
+  {{- end }}
+  <header class="article__header">
+    <h1 class="article__title">{{ .Title }}</h1>
+    {{ partial "article-meta.html" . }}
+    {{- with .Params.summary -}}
+      <p class="article__summary">{{ . }}</p>
+    {{- end -}}
+  </header>
+  {{- $cover := false -}}
+  {{- with .Params.artisanal -}}
+    {{- with .cover -}}
+      {{- with .resource -}}
+        {{- $cover = $.Resources.GetMatch . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $cover -}}
+    <figure class="article__cover">
+      {{ partial "responsive-image.html" (dict "image" . "alt" ($.Params.artisanal.cover.alt | default $.Title) "loading" "eager" "sizes" "(min-width: 920px) 800px, 100vw") }}
+    </figure>
+  {{- end -}}
+  <div class="article__content prose">
+    {{ .Content }}
+  </div>
+  {{- with .Params.tags -}}
+    <footer class="article__footer">
+      <ul class="tag-list" aria-label="{{ i18n "tags" | default "Tags" }}">
+        {{- range . -}}
+          <li class="tag-list__item"><a href="{{ (printf "/tags/%s/" (. | urlize)) | relLangURL }}">{{ . }}</a></li>
+        {{- end -}}
+      </ul>
+    </footer>
+  {{- end -}}
+</article>
