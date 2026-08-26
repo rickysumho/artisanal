@@ -1,7 +1,9 @@
 # Artisanal
 
 Artisanal is a Hugo theme for personal sites, portfolios, journals, and resumes.
-It uses local fonts, responsive layouts, accessible controls, and small motion details.
+It uses local fonts, simple layouts, accessible controls, and small motion details.
+The default display face is Source Serif 4.
+The default body face is DM Sans.
 
 ## Preview
 
@@ -17,15 +19,19 @@ It uses local fonts, responsive layouts, accessible controls, and small motion d
 
 ![Tea page with a coffee chat call to action](docs/screenshots/tea.jpg)
 
+## Requirements
+
+- Hugo 0.158.0 or newer.
+- Node.js is needed only for the local test commands.
+- Use Hugo Extended if your site adds Sass assets.
+
 ## Install
 
-Use Hugo 0.158.0 or newer.
-The theme does not need a network connection, Sass, Tailwind, or a JavaScript runtime to build a site.
-
-Create a Hugo site and place this repository in its `themes/artisanal` directory.
+Create a Hugo site.
 
 ```sh
 hugo new site my-site
+mkdir -p my-site/themes
 cp -R /path/to/artisanal my-site/themes/artisanal
 cd my-site
 ```
@@ -36,24 +42,30 @@ Set the theme in `hugo.toml`.
 theme = "artisanal"
 ```
 
-Copy the files in `exampleSite/content` and the relevant settings in `exampleSite/hugo.toml` to start with the included structure.
-Run `hugo server` and open the local address shown by Hugo.
+Copy the content and settings from `exampleSite` when you want a complete starter site.
+Replace the example text, links, images, and email address before you deploy.
+
+Run the local server.
+
+```sh
+hugo server
+```
 
 ## Features
 
-- A homepage with a configurable title, subtitle, portrait, and header mark.
-- Journal sections with list or gallery views.
-- Nested backlinks that preserve the visitor’s entry section.
+- Homepage with a title, subtitle, portrait, and configurable header mark.
+- Nested journal sections with list and gallery views.
+- Back links that preserve the section where a visitor entered an article.
 - Resume, taxonomy, RSS, 404, and standard page layouts.
-- Local Source Serif 4 display and DM Sans body fonts, with Fraunces available for optional overrides.
+- Local Source Serif 4 and DM Sans font files.
 - Responsive images with eager loading for lead images and lazy loading for later images.
-- Same-origin navigation prefetching on pointer or keyboard intent.
-- A slow opacity-only page transition when the browser supports View Transitions.
-- Reduced-motion support, skip navigation, focus styles, and Axe accessibility checks.
+- Same-origin navigation prefetching on pointer and keyboard intent.
+- Opacity-only page transitions when the browser supports View Transitions.
+- Reduced-motion support, skip navigation, visible focus styles, and accessibility tests.
 
 ## Configure
 
-Set optional values under `params.artisanal`.
+Set theme options under `params.artisanal`.
 
 ```toml
 [params.artisanal]
@@ -64,31 +76,77 @@ headerMark = "mark.svg"
 titleSeparator = "·"
 ```
 
-The `headerMark` value points to a resource in the homepage page bundle.
-Animated image formats such as GIF are supported.
-Use `menus.main` for primary navigation and `artisanal.social` for footer icon links.
+`headerMark` points to a resource in the homepage page bundle.
+Use an SVG, PNG, or animated GIF.
+Use `menus.main` for the primary navigation.
+Use `params.artisanal.social` for the icon links in the footer.
 
-## Content
+## Content model
 
-Use `type: journal` for archive sections.
-Set `artisanal.view` to `list` or `gallery` on a section.
-Use `layout: resume` for resume content.
-Keep images in page bundles and provide meaningful alternative text.
+Use `type: journal` for an archive section.
+Set `artisanal.view` to `list` or `gallery` on that section.
+Create child sections for groups such as `writeups`, `thoughts`, and `visual`.
+Use `layout: resume` for structured resume content.
+Keep images in page bundles and provide useful alternative text.
+
+Example journal section front matter:
+
+```yaml
+---
+title: writeups
+type: journal
+artisanal:
+  view: list
+---
+```
+
+Example resume front matter:
+
+```yaml
+---
+title: resume
+layout: resume
+artisanal:
+  sections: []
+---
+```
+
+## Project layout
+
+- `assets/` contains CSS, local fonts, and navigation JavaScript.
+- `layouts/` contains page templates and reusable partials.
+- `archetypes/` contains starter front matter for pages and journal entries.
+- `exampleSite/` contains a complete site that demonstrates the theme.
+- `tests/` contains browser, HTML, and accessibility checks.
+- `docs/screenshots/` contains the README preview images.
 
 ## Develop and validate
+
+Install the development dependencies.
 
 ```sh
 npm install
 npx playwright install chromium webkit
-npm test
-make serve
 ```
 
-`npm test` runs the strict Hugo build, HTML validation, browser tests, and accessibility checks.
-Override templates by placing a file at the same path in your site’s `layouts` directory.
+Build the example site.
+
+```sh
+npm run build
+```
+
+Run the full validation suite.
+
+```sh
+npm test
+```
+
+`npm test` runs the strict Hugo build, HTML validation, Playwright tests, and Axe checks.
+Run `make serve` to start the example site with Hugo's development server.
+Override a theme template by placing a file at the same path in your site's `layouts` directory.
 
 ## License
 
 Theme code is available under the MIT License.
 Bundled fonts use the SIL Open Font License 1.1.
-See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution.
+See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for font attribution.
