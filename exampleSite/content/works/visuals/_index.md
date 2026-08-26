@@ -1,5 +1,5 @@
 ---
-title: visual
+title: visuals
 type: journal
 weight: 30
 artisanal:

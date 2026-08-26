@@ -6,6 +6,11 @@
         <h1 class="home-title">{{ site.Title }}</h1>
         {{ with $home.Params.artisanal }}{{ with .subtitle }}<p class="home-subtitle">{{ . }}</p>{{ end }}{{ end }}
         {{ with $home.Content }}<div class="home-intro prose">{{ . }}</div>{{ end }}
+        {{ with site.Params.artisanal.social }}
+          <div class="home-social">
+            {{ partial "social-links.html" $home }}
+          </div>
+        {{ end }}
       </div>
       {{ with $home.Params.artisanal }}
         {{ with .portrait }}

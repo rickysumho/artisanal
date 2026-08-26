@@ -96,7 +96,7 @@ test('font preload matches the compiled stylesheet asset', async ({ page }) => {
 });
 
 test('gallery defers non-leading images', async ({ page }) => {
-  await page.goto('works/visual/');
+  await page.goto('works/visuals/');
   const loadingModes = await page.locator('.gallery-card img').evaluateAll((images) => images.map((image) => image.loading));
   expect(loadingModes.length).toBeGreaterThan(1);
   expect(loadingModes[0]).toBe('eager');
@@ -116,6 +116,7 @@ test('article back links preserve the entry section', async ({ page }) => {
   await expect(page).toHaveURL(/works\/writeups\/attention\/$/);
   await expect(page.locator('[data-back-link]')).toHaveAttribute('href', /\/works\/$/);
   await expect(page.locator('[data-back-label]')).toHaveText('Back to works');
+  await expect(page.locator('[data-back-link]')).toHaveCSS('gap', '6.4px');
 
   await page.goto('works/writeups/');
   await page.locator('a[href="/works/writeups/attention/"]').click();
@@ -125,7 +126,7 @@ test('article back links preserve the entry section', async ({ page }) => {
 });
 
 test('journal subsections link back to works', async ({ page }) => {
-  for (const route of ['works/writeups/', 'works/thoughts/', 'works/visual/']) {
+  for (const route of ['works/writeups/', 'works/thoughts/', 'works/visuals/']) {
     await page.goto(route);
     await expect(page.locator('[data-section-back-link]')).toHaveAttribute('href', /\/works\/$/);
     await expect(page.locator('[data-section-back-link]')).toHaveText('← Back to works');
@@ -135,7 +136,7 @@ test('journal subsections link back to works', async ({ page }) => {
 test('primary page types share one content start position', async ({ page }) => {
   const routes = [
     ['works/', '.section-header'],
-    ['works/visual/', '.section-header'],
+    ['works/visuals/', '.section-header'],
     ['tags/', '.section-header'],
     ['resume/', '.resume__header'],
     ['tea/', '.page-header'],
@@ -166,7 +167,7 @@ test('the 404 page uses the shared page treatment', async ({ page }) => {
 });
 
 test('page headers do not render automatic mini labels', async ({ page }) => {
-  for (const route of ['works/', 'works/visual/', 'works/writeups/attention/', 'tags/', 'resume/', 'tea/', 'missing/']) {
+  for (const route of ['works/', 'works/visuals/', 'works/writeups/attention/', 'tags/', 'resume/', 'tea/', 'missing/']) {
     await page.goto(route);
     await expect(page.locator('.section-header__eyebrow, .article__eyebrow, .resume__eyebrow, .page-kicker')).toHaveCount(0);
   }
@@ -175,7 +176,7 @@ test('page headers do not render automatic mini labels', async ({ page }) => {
 test('standard page headings use the shared heading scale', async ({ page }) => {
   const routes = [
     ['works/', '.section-header__title'],
-    ['works/visual/', '.section-header__title'],
+    ['works/visuals/', '.section-header__title'],
     ['tags/', '.section-header__title'],
     ['resume/', '.resume__title'],
     ['tea/', '.page-title'],
@@ -244,14 +245,14 @@ test('document titles use the configured separator and keep home concise', async
   await expect(page).toHaveTitle('field notes');
 });
 
-test('tea page provides a coffee chat mail link', async ({ page }) => {
+test('tea page provides a tea chat mail link', async ({ page }) => {
   await page.goto('tea/');
   await expect(page.locator('h1')).toHaveText('tea');
-  await expect(page.locator('.page-content a[href="mailto:hello@example.org"]')).toHaveText('set up a coffee chat');
+  await expect(page.locator('.page-content a[href="mailto:hello@example.org"]')).toHaveText('set up a tea chat');
 });
 
 test('content cards lift with a shadow bloom and the header uses a simple fade', async ({ page }) => {
-  await page.goto('works/visual/');
+  await page.goto('works/visuals/');
   const card = page.locator('.gallery-card a').first();
   await expect(card).toBeVisible();
   await card.hover();
@@ -298,13 +299,33 @@ test('essay rows stay flat and shift subtly on hover', async ({ page }) => {
 });
 
 test('footer uses accessible icon-only links', async ({ page }) => {
-  await page.goto('./');
-  const links = page.locator('.social-links__link');
+  await page.goto('works/');
+  const links = page.locator('.site-footer .social-links__link');
   expect(await links.count()).toBeGreaterThan(0);
   expect(await links.locator('span').count()).toBe(0);
   for (const link of await links.all()) {
     await expect(link).toHaveAttribute('aria-label', /.+/);
   }
+});
+
+test('homepage places social links in the main content without a footer', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('.site-footer')).toHaveCount(0);
+  const homeSocial = page.locator('.home-social');
+  await expect(homeSocial).toBeVisible();
+  await expect(homeSocial.locator('.social-links__link')).toHaveCount(3);
+  const restingColor = await homeSocial.locator('.social-links__link').first().evaluate((element) => getComputedStyle(element).color);
+  expect(restingColor).toBe('rgb(118, 118, 118)');
+  await homeSocial.locator('.social-links__link').first().hover();
+  await page.waitForTimeout(320);
+  const hoverColor = await homeSocial.locator('.social-links__link').first().evaluate((element) => getComputedStyle(element).color);
+  expect(hoverColor).toBe('rgb(36, 92, 64)');
+  const socialPosition = await homeSocial.evaluate((element) => {
+    const social = element.getBoundingClientRect();
+    const intro = element.previousElementSibling.getBoundingClientRect();
+    return { socialTop: social.top, introBottom: intro.bottom };
+  });
+  expect(socialPosition.socialTop).toBeGreaterThan(socialPosition.introBottom);
 });
 
 test('the page remains available without JavaScript', async ({ browser }) => {

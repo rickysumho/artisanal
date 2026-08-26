@@ -7,5 +7,5 @@ artisanal:
   view: gallery
   image: blue-hour.svg
   alt: Layered blue arcs around a warm circle
-tags: [visual]
+tags: [visuals]
 ---

@@ -1,0 +1,14 @@
+{{- with site.Params.artisanal.social }}
+  <nav class="social-links" aria-label="{{ i18n "social_links" | default "Social links" }}">
+    <ul class="social-links__list">
+      {{- range . }}
+        {{- $label := .name | default .title | default "Social link" -}}
+        <li class="social-links__item">
+          <a class="social-links__link" href="{{ .url }}" aria-label="{{ $label | htmlEscape }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{ partial "social-icon.html" (.icon | default .name) }}
+          </a>
+        </li>
+      {{- end }}
+    </ul>
+  </nav>
+{{- end }}

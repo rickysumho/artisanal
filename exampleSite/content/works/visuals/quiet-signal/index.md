@@ -7,5 +7,5 @@ artisanal:
   view: gallery
   image: quiet-signal.svg
   alt: Repeating lines interrupted by a green square
-tags: [visual]
+tags: [visuals]
 ---

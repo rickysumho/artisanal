@@ -3,6 +3,8 @@ title: tea
 subtitle: let’s make time for a good conversation.
 ---
 
-Want to talk through an idea, a project, or a question? I am always happy to trade notes over coffee.
+Want to talk through an idea, a project, or a question? I am always happy to trade notes over tea.
 
-[set up a coffee chat](mailto:hello@example.org)
+I do not drink coffee, but I really enjoy tea. That is why I call this a tea chat.
+
+[set up a tea chat](mailto:hello@example.org)

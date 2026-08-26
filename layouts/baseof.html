@@ -11,10 +11,12 @@
     <main id="main-content" class="site-main" tabindex="-1">
       {{ block "main" . }}{{ end }}
     </main>
-    {{ with site.Params.artisanal.social }}
-      <footer class="site-footer">
-        {{ partial "footer.html" $ }}
-      </footer>
+    {{ if not .IsHome }}
+      {{ with site.Params.artisanal.social }}
+        <footer class="site-footer">
+          {{ partial "footer.html" $ }}
+        </footer>
+      {{ end }}
     {{ end }}
   </body>
 </html>

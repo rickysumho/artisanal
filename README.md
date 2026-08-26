@@ -13,11 +13,11 @@ The default body face is DM Sans.
 
 ### Works archive
 
-![Works archive with writeups, thoughts, and visual sections](docs/screenshots/works.jpg)
+![Works archive with writeups, thoughts, and visuals sections](docs/screenshots/works.jpg)
 
 ### Tea page
 
-![Tea page with a coffee chat call to action](docs/screenshots/tea.jpg)
+![Tea page with a tea chat call to action](docs/screenshots/tea.jpg)
 
 ## Requirements
 
@@ -56,6 +56,7 @@ hugo server
 - Homepage with a title, subtitle, portrait, and configurable header mark.
 - Nested journal sections with list and gallery views.
 - Back links that preserve the section where a visitor entered an article.
+- Tea page with a short personal note and a direct email CTA for tea chats.
 - Resume, taxonomy, RSS, 404, and standard page layouts.
 - Local Source Serif 4 and DM Sans font files.
 - Responsive images with eager loading for lead images and lazy loading for later images.
@@ -79,13 +80,15 @@ titleSeparator = "·"
 `headerMark` points to a resource in the homepage page bundle.
 Use an SVG, PNG, or animated GIF.
 Use `menus.main` for the primary navigation.
-Use `params.artisanal.social` for the icon links in the footer.
+Use `params.artisanal.social` for the icon links.
+Interior pages render these links in the footer.
+The homepage renders them below the main text.
 
 ## Content model
 
 Use `type: journal` for an archive section.
 Set `artisanal.view` to `list` or `gallery` on that section.
-Create child sections for groups such as `writeups`, `thoughts`, and `visual`.
+Create child sections for groups such as `writeups`, `thoughts`, and `visuals`.
 Use `layout: resume` for structured resume content.
 Keep images in page bundles and provide useful alternative text.
 

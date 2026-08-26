@@ -7,5 +7,5 @@ artisanal:
   view: gallery
   image: soft-geometry.svg
   alt: Overlapping circles and a thin black line
-tags: [visual]
+tags: [visuals]
 ---
