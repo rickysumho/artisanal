@@ -73,12 +73,14 @@ Set theme options under `params.artisanal`.
 accent = "#5c9574"
 accentText = "#245c40"
 dateFormat = "Jan 2, 2006"
+favicon = "favicon.ico"
 headerMark = "mark.svg"
 titleSeparator = "·"
 ```
 
 `headerMark` points to a resource in the homepage page bundle.
 Use an SVG, PNG, or animated GIF.
+`favicon` points to a static file in your site's `static/` directory.
 Use `menus.main` for the primary navigation.
 Use `params.artisanal.social` for the icon links.
 Interior pages render these links in the footer.
