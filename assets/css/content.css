@@ -19,7 +19,7 @@
   margin: 0;
   color: var(--artisanal-ink-strong);
   font-family: var(--artisanal-display);
-  font-size: clamp(3.75rem, 13vw, 8.5rem);
+  font-size: clamp(1.8rem, 6vw, 4.05rem);
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -174,7 +174,7 @@
   margin: 0;
   color: var(--artisanal-ink-strong);
   font-family: var(--artisanal-display);
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-size: clamp(1.3rem, 3.2vw, 1.85rem);
   font-style: normal;
   font-weight: 500;
   letter-spacing: -0.018em;
@@ -347,7 +347,7 @@
   margin: 3.5rem 0 1rem;
   color: var(--artisanal-ink-strong);
   font-family: var(--artisanal-display);
-  font-size: clamp(1.85rem, 5vw, 2.7rem);
+  font-size: clamp(1.6rem, 4.2vw, 2.2rem);
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.018em;
@@ -359,7 +359,7 @@
 .content h3 {
   margin: 2.3rem 0 0.7rem;
   color: var(--artisanal-ink-strong);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.09em;
   line-height: 1.4;
@@ -371,7 +371,7 @@
 .content h4 {
   margin: 1.8rem 0 0.5rem;
   color: var(--artisanal-ink-strong);
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 700;
 }
 
@@ -586,7 +586,7 @@
 .pagination__title {
   display: block;
   font-family: var(--artisanal-display);
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   font-style: normal;
   font-weight: 500;
   line-height: 1.15;
@@ -655,11 +655,22 @@
 .resume-entry__role,
 .resume__entry-role {
   margin: 0.2rem 0 0;
+  color: var(--artisanal-ink-strong);
+  font-family: var(--artisanal-body);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.resume-entry__team,
+.resume__entry-team {
+  margin: 0.2rem 0 0;
   color: var(--artisanal-accent-action);
-  font-family: var(--artisanal-display);
-  font-size: 1.2rem;
-  font-style: italic;
-  line-height: 1.2;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
 }
 
 .resume-entry__summary,
@@ -692,7 +703,7 @@
 .resume__project-title {
   margin: 0;
   color: var(--artisanal-ink-strong);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.35;
 }

@@ -18,6 +18,7 @@
                   <div>
                     <p class="resume__entry-organization">{{ .organization }}</p>
                     {{ with .role }}<h3 class="resume__entry-role">{{ . }}</h3>{{ end }}
+                    {{ with .team }}<p class="resume__entry-team">{{ . }}</p>{{ end }}
                     {{ with .summary }}<div class="resume__entry-summary prose">{{ . | markdownify }}</div>{{ end }}
                     {{ with .projects }}
                       <ul class="resume__projects">

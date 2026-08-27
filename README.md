@@ -92,6 +92,7 @@ Use `type: journal` for an archive section.
 Set `artisanal.view` to `list` or `gallery` on that section.
 Create child sections for groups such as `writeups`, `thoughts`, and `visuals`.
 Use `layout: resume` for structured resume content.
+Add an optional `team` field to an entry when you want to show the team below its role.
 Keep images in page bundles and provide useful alternative text.
 
 Example journal section front matter:

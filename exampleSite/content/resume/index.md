@@ -8,6 +8,7 @@ artisanal:
         - period: 2026
           organization: North Star Studio
           role: Product engineer
+          team: Product systems
           summary: Building calm, useful software with small teams and clear constraints.
           projects:
             - title: Signal board
@@ -15,6 +16,7 @@ artisanal:
         - period: 2024-25
           organization: Common Thread Lab
           role: Research engineer
+          team: Prototype research
           summary: Designed prototypes that helped teams explore uncertain questions without losing the human context.
     - title: education
       entries:

@@ -345,7 +345,7 @@ a:hover {
   margin: 0;
   color: var(--artisanal-ink-strong);
   font-family: var(--artisanal-display);
-  font-size: clamp(2.5rem, 8vw, 4.7rem);
+  font-size: clamp(1.5rem, 4.9vw, 2.9rem);
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.025em;

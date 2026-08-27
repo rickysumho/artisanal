@@ -63,6 +63,39 @@ test('resume introduction follows the shared content spacing rhythm', async ({ p
   expect(gaps.introToSections).toBeGreaterThanOrEqual(testInfo.project.name === 'mobile' ? 31 : 63);
 });
 
+test('resume roles use a smaller version of the organization style', async ({ page }) => {
+  await page.goto('resume/');
+  const styles = await page.locator('.resume__entry').first().evaluate((entry) => {
+    const organization = getComputedStyle(entry.querySelector('.resume__entry-organization'));
+    const role = getComputedStyle(entry.querySelector('.resume__entry-role'));
+    return {
+      organizationFamily: organization.fontFamily,
+      organizationWeight: organization.fontWeight,
+      organizationColor: organization.color,
+      organizationLineHeight: organization.lineHeight,
+      organizationSize: Number.parseFloat(organization.fontSize),
+      roleFamily: role.fontFamily,
+      roleWeight: role.fontWeight,
+      roleColor: role.color,
+      roleLineHeight: role.lineHeight,
+      roleSize: Number.parseFloat(role.fontSize),
+      roleStyle: role.fontStyle,
+    };
+  });
+  expect(styles.roleFamily).toBe(styles.organizationFamily);
+  expect(styles.roleWeight).toBe(styles.organizationWeight);
+  expect(styles.roleColor).toBe(styles.organizationColor);
+  expect(Number.parseFloat(styles.roleLineHeight) / styles.roleSize).toBeCloseTo(Number.parseFloat(styles.organizationLineHeight) / styles.organizationSize, 2);
+  expect(styles.roleSize).toBeLessThanOrEqual(styles.organizationSize * 0.82);
+  expect(styles.roleStyle).toBe('normal');
+});
+
+test('resume team labels render below their roles', async ({ page }) => {
+  await page.goto('resume/');
+  await expect(page.locator('.resume__entry-team')).toHaveText(['Product systems', 'Prototype research']);
+  await expect(page.locator('.resume__entry-team').first()).toHaveCSS('color', 'rgb(36, 92, 64)');
+});
+
 test('homepage hero uses one deliberate top inset', async ({ page }) => {
   await page.goto('./');
   const spacing = await page.locator('.home').evaluate((element) => {
@@ -216,7 +249,7 @@ test('reduced motion disables animated transitions', async ({ page }) => {
   expect(['0s', '0.01ms', '1e-05s', '0.00001s']).toContain(values.animationDuration);
   expect(values.scrollBehavior).toBe('auto');
   const stylesheet = await page.locator('link[rel="stylesheet"]').evaluate(async (link) => fetch(link.href).then((response) => response.text()));
-  expect(stylesheet.replace(/\s+/g, '')).toContain('::view-transition-old(page),::view-transition-new(page){animation:none!important}');
+  expect(stylesheet.replace(/\s+/g, '')).toMatch(/::view-transition-old\(page\),::view-transition-new\(page\)\{animation:none!important;?\}/);
 });
 
 test('page navigation uses opacity-only view transitions', async ({ page }) => {
